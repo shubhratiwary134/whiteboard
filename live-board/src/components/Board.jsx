@@ -1,11 +1,10 @@
 import useStore from '../storage/store'
 import CursorDisplays from './CursorDisplays'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef} from 'react'
 import rough from 'roughjs/bundled/rough.cjs.js'
 
 
  export default function Board(){
- 
     const shapes=useStore((state)=>state.shapes)
   const forPointerUp=useStore((state)=>state.forPointerUp)
   const forPointerMove=useStore((state)=>state.forPointerMove)
@@ -28,20 +27,15 @@ const selection=useStore((state)=>state.selection)
 const isDragging=useStore((state)=>state.isDragging)
 const setPen=useStore((state)=>state.setPen)
 const roomID=useStore((state)=>state.roomID)
-
+const drawing = useStore((state)=>state.drawing)
  const canvasRef=useRef(null)
-
-
-
- 
-
  useEffect(()=>{
   const canvas=canvasRef.current
   const ctx=canvas.getContext('2d');
    ctx.lineWidth=3;
    const roughCanvas=rough.canvas(canvas)
     ctx.clearRect(0,0,canvas.width,canvas.height)
-   {Object.entries(shapes).map(([shapeId,shape])=>{
+   Object.entries(shapes).map(([shapeId,shape])=>{
     let borderColor='white'
     if(shapeSelected===shapeId){
       borderColor='blue'
@@ -50,9 +44,9 @@ const roomID=useStore((state)=>state.roomID)
       borderColor='green'
     }
     printRectangle(shape,borderColor,ctx,roughCanvas)
-  })}
-  
- },[shapes,shapeSelected,others])
+  })
+
+ },[shapes,shapeSelected,drawing,others])
  
  
 
@@ -63,15 +57,22 @@ const roomID=useStore((state)=>state.roomID)
     roughCanvas.rectangle(shape.x,shape.y,shape.width,shape.height,{roughness:1.5,stroke:borderColor,strokeWidth:2})
 
   }
-  if(shape.type=='line'){
+  else if(shape.type=='line'){
     roughCanvas.line(shape.x,shape.y,shape.x2,shape.y2,{
       stroke:'white',
       strokeWidth:2
     })  
   }
- 
+  else if (shape.type === 'pen' && shape.path  && Array.isArray(shape.path) ) {
+    if(shape.path.length>0){
+    ctx.strokeStyle = 'white'
+    ctx.beginPath();
+    ctx.moveTo(shape.path[0].x, shape.path[0].y)
+    shape.path.forEach(point => ctx.lineTo(point.x, point.y))
+    ctx.stroke()
+    }
+}
  }
-
     return (
     
         <div onPointerMove={cursorMovement} onPointerLeave={cursorLeave}>
@@ -95,6 +96,7 @@ const roomID=useStore((state)=>state.roomID)
           selectShape(e)
         }else{
           startDrawing(e)
+          
         }
         
        }}
@@ -102,6 +104,7 @@ const roomID=useStore((state)=>state.roomID)
         if(isDragging){
           forPointerMove(e)
         }else{
+          
           continueDrawing(e)
         }
        }}
@@ -133,8 +136,6 @@ const roomID=useStore((state)=>state.roomID)
             <button onClick={undo}>undo</button>
             <button onClick={redo}>redo</button>
           </div>
-          
-       
         </div>
         
       )

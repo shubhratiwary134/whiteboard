@@ -1,15 +1,9 @@
 import {create} from 'zustand'
 import { createClient } from "@liveblocks/client";
-
 import { liveblocks } from '@liveblocks/zustand'
-
-
 const client = createClient({
 publicApiKey:'pk_prod__SYQ5Xvp8_yqm6RnOeX0Y2AzJ8Sgy6ZLQbtHxcnv1I9BChodb_KzG5dlgqgyNaGf'
 })
-
-
-
 
 
 
@@ -38,7 +32,7 @@ const useStore=create()(
                 const newRoomIDs = [...roomIDs, roomID]
         localStorage.setItem('roomIDs', JSON.stringify(newRoomIDs))
         set({ roomIDs: newRoomIDs })
-        console.log('roomIds after addition',get().roomIDs)
+       
             },
 
             checkRoomID:(roomID)=>{
@@ -76,20 +70,23 @@ const useStore=create()(
                    
                 }
                 if(type==='pen'){
+                    
                     shape={
                         shapeId,
                        x:e.nativeEvent.offsetX,
                        y:e.nativeEvent.offsetY,
                         stroke:'white',
-                        type:'pen'
+                        type:'pen',
+                        path:[{x:e.nativeEvent.offsetX,y:e.nativeEvent.offsetY}]
                     }
-                    
+          
                     
                 }
                 set({
                     shapes:{...shapes,[shapeId]:shape},
-                    shapeSelected:shapeId
+                    shapeSelected:shapeId,
                    })    
+                   get().liveblocks.room?.history.pause()
                         
             },
             setTypeRect:()=>{
@@ -114,6 +111,7 @@ const useStore=create()(
             continueDrawing:(e)=>{
                 const {shapes,shapeSelected,drawing}=get()       
                const shape=shapes[shapeSelected]
+            
                 if(drawing===false){
                     return
                 }
@@ -141,20 +139,22 @@ const useStore=create()(
                     }
                 )
                }
-               if(shape.type=='pen'){
-                    set({
-                        shapes:{...shapes,
-                            [shapeSelected]:{
-                                ...shape,
-                                x:e.nativeEvent.offsetX,
-                                y:e.nativeEvent.offsetY
-                            }
-                        }
-                    })
+               else if (shape.type === 'pen') {   
+                const newPath = [...shape.path, { x: e.clientX, y: e.clientY }]
+                set({
+                    shapes:{...shapes,
+                        [shapeSelected]:{
+                            ...shape,
+                            path:newPath
+                    }}
+                })
                }
             } ,
-            stopDrawing:()=>{
-                set({drawing:false})
+            stopDrawing:()=>{       
+                set({drawing:false}) 
+                set({ path: [] }) 
+                get().liveblocks.room?.history.resume()
+               
             },
             selectShape:(e)=>{
                 const {shapes}=get()
@@ -166,7 +166,9 @@ const useStore=create()(
                         e.clientY >= shape.y && e.clientY <= shape.y + shape.height;
                     }
                     if(shape.type ==='line'){
-                        const distance = Math.sqrt((e.clientX - shape.x) ** 2 + (e.clientY - shape.y) ** 2);
+                       
+                        
+                        const distance = Math.sqrt((e.clientX - shape.x) * 2 + (e.clientY - shape.y) * 2);
                         return distance < 10; 
                     }
                     return false
@@ -205,12 +207,12 @@ const useStore=create()(
                 })
             },
             selectParticularShape:(shapeId)=>{
-                get().liveblocks.room?.history.pause()
+               
                 set({shapeSelected:shapeId,isDragging:true})
             },
            forPointerUp:()=>{
             set({isDragging:false})
-            get().liveblocks.room?.history.resume()
+            
            },
            forPointerMove:(e)=>{
             e.preventDefault()
@@ -272,7 +274,7 @@ const useStore=create()(
         
         {
             client,
-            storageMapping:{shapes:true,roomIDs:true},
+            storageMapping:{shapes:true,roomIDs:true,path:true},
             presenceMapping:{shapeSelected:true,cursor:true}
         }
     )
