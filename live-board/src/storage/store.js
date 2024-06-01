@@ -1,9 +1,11 @@
 import {create} from 'zustand'
 import { createClient } from "@liveblocks/client";
 import { liveblocks } from '@liveblocks/zustand'
+
 const client = createClient({
 publicApiKey:'pk_prod__SYQ5Xvp8_yqm6RnOeX0Y2AzJ8Sgy6ZLQbtHxcnv1I9BChodb_KzG5dlgqgyNaGf'
 })
+
 
 
 
@@ -11,6 +13,7 @@ const useStore=create()(
     liveblocks(
         (set,get)=>({
             shapes:{},
+            threads:{},
             roomID:null,
             roomIDs: JSON.parse(localStorage.getItem('roomIDs')) || [],
             shapeSelected:null,
@@ -19,6 +22,45 @@ const useStore=create()(
             type:'rectangle',
             cursor:{x:0,y:0},
             selection:false,
+            commentValues:{},
+            setCommentValue:(threadId,commentValue)=>{
+                const {commentValues}=get()
+                set({commentValues:{...commentValues,[threadId]:commentValue}})
+            },
+            getRandomInt:(max)=>{
+                const x = Math.floor(Math.random()*max)
+                return x
+            },
+
+            addThreads:(threadId,text,x,y)=>{
+                const {threads}=get()
+                const thread={
+                    text: text,
+                    x:x,
+                    y:y
+                }
+                set({threads:{...threads,[threadId]:thread}})
+               console.log(threads)
+            },
+            updateThread:(threadId,text)=>{
+                const {threads}=get()
+                
+                set({threads:{...threads,
+            [threadId]:{...threads[threadId],
+                text:text
+            }}})
+            console.log(threads)
+            
+         
+            },
+            deleteThreads:(threadId)=>{
+                const {threads}=get()
+               const newThreads={...threads}
+               delete newThreads[threadId]
+               set({
+                threads:newThreads
+               })
+            },
          
 
             setSelection:()=>{
@@ -39,6 +81,7 @@ const useStore=create()(
                 const {roomIDs}=get()
                 return roomIDs.includes(roomID)
             },
+            
             startDrawing:(e)=>{  
                 set({drawing:true})
                 const {type}=get()
@@ -205,6 +248,9 @@ const useStore=create()(
                 set({
                     shapes:{}
                 })
+                set({
+                    threads:{}
+                })
             },
             selectParticularShape:(shapeId)=>{
                
@@ -274,7 +320,7 @@ const useStore=create()(
         
         {
             client,
-            storageMapping:{shapes:true,roomIDs:true,path:true},
+            storageMapping:{shapes:true,roomIDs:true,path:true,threads:true,commentValues:true},
             presenceMapping:{shapeSelected:true,cursor:true}
         }
     )

@@ -1,6 +1,7 @@
 import useStore from '../storage/store'
+import Comment from './Comment'
 import CursorDisplays from './CursorDisplays'
-import { useEffect, useRef} from 'react'
+import { useEffect, useRef, useState} from 'react'
 import rough from 'roughjs/bundled/rough.cjs.js'
 
 
@@ -28,7 +29,10 @@ const isDragging=useStore((state)=>state.isDragging)
 const setPen=useStore((state)=>state.setPen)
 const roomID=useStore((state)=>state.roomID)
 const drawing = useStore((state)=>state.drawing)
+const getRandomInt=useStore((state)=>state.getRandomInt)
+const threads=useStore((state)=>state.threads)
  const canvasRef=useRef(null)
+const addThreads=useStore((state)=>state.addThreads)
  useEffect(()=>{
   const canvas=canvasRef.current
   const ctx=canvas.getContext('2d');
@@ -72,6 +76,12 @@ const drawing = useStore((state)=>state.drawing)
     ctx.stroke()
     }
 }
+ }
+ function addComment(){
+  const x = getRandomInt(600)
+  const y = getRandomInt(600)
+  const threadId=Date.now().toString()
+ addThreads(threadId,'',x,y)
  }
     return (
     
@@ -135,7 +145,12 @@ const drawing = useStore((state)=>state.drawing)
             <button onClick={deleteRect}>delete</button>
             <button onClick={undo}>undo</button>
             <button onClick={redo}>redo</button>
+            <button onClick={addComment}>Add comment</button>
           </div>
+          {Object.entries(threads)
+    .map(([threadId, thread]) => (
+        <Comment key={threadId} x={thread.x} y={thread.y} />
+    ))}
         </div>
         
       )
