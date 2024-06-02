@@ -6,6 +6,7 @@ import Room from './components/Room.jsx'
 
 
 
+
 function App() {
 //   const isLoading = useStore((state)=>state.liveblocks.isStorageLoading)
 //   const enterRoom=useStore((state)=>state.liveblocks.enterRoom)
@@ -30,8 +31,10 @@ function App() {
   
 return(
   <>
+
  <BrowserRouter>
  <Routes>
+  
   <Route path='/' element={<InitialPage></InitialPage>}></Route>
   <Route path='/room/:roomID' element={<Room></Room>}></Route>
   {/* <Route path='/comments' element={<AnotherApp></AnotherApp>}></Route> */}

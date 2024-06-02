@@ -147,8 +147,7 @@ const addThreads=useStore((state)=>state.addThreads)
             <button onClick={redo}>redo</button>
             <button onClick={addComment}>Add comment</button>
           </div>
-          {Object.entries(threads)
-    .map(([threadId, thread]) => (
+          {Object.entries(threads).map(([threadId, thread]) => (
         <Comment key={threadId} x={thread.x} y={thread.y} />
     ))}
         </div>

@@ -1,7 +1,8 @@
 import {   useNavigate} from 'react-router-dom'
 import useStore from '../storage/store.js'
-
+import logo from '../images/backgorund.gif'
 import {  useEffect, useState } from 'react';
+import Navbar from './Navbar.jsx';
 
 
 export default function InitialPage(){
@@ -47,16 +48,22 @@ else{
     return(
         
         <>
-        <div className="Rooms">
-
-          <button onClick={EnterRooms}>create Room</button>
-            <button onClick={()=>{setJoin(!join)
-            }}>join a room</button>
-            {join ?<div><input type='text' placeholder='enter the room Id'
+        <Navbar></Navbar>
+        <div className=' text-black flex justify-around items-center'>
+            <div className=''>
+                <img src={logo}></img>
+            </div>
+          <button onClick={EnterRooms} className='bg-white py-2 px-5 '>create Room</button>
+          <div>
+          <button onClick={()=>{setJoin(!join)
+            }} className='  bg-white py-2 px-5'>join a room</button>
+            {join ?<div className='flex flex-col'><input type='text' placeholder='enter the room Id'
             onChange={(e)=>setTempRoomId(e.target.value)}
              value={tempRoomId}></input>
-              <button onClick={joinRoom}>submit</button>
+              <button onClick={joinRoom} className='bg-white'>submit</button>
              </div>:null}
+          </div>
+            
              
              
            

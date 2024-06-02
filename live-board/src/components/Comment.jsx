@@ -13,7 +13,6 @@ export default function Comment({threadId,x,y}){
       function handleInputChange(e){
         const value = e.target.value;
         setLocalCommentValue(value);
-        // Synchronize the comment value in real-time
         updateThread(threadId, value);
         setCommentValue(threadId, value);
       }
@@ -21,6 +20,7 @@ export default function Comment({threadId,x,y}){
     function handleSubmit(){
         updateThread(threadId,localCommentValue)
         setCommentValue(threadId,localCommentValue)
+        
     }
    
     return (
