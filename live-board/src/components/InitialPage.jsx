@@ -53,10 +53,10 @@ else{
             <div className=''>
                 <img src={logo}></img>
             </div>
-          <button onClick={EnterRooms} className='bg-white py-2 px-5 '>create Room</button>
+          <button onClick={EnterRooms} className='text-white border-2 border-white-900 py-2 px-5 hover:scale-125 ease-in duration-300  '>Create Room</button>
           <div>
           <button onClick={()=>{setJoin(!join)
-            }} className='  bg-white py-2 px-5'>join a room</button>
+            }} className='  text-white border-2 border-white-900 py-2 px-5 hover:scale-125 ease-in duration-300'>Join Room</button>
             {join ?<div className='flex flex-col'><input type='text' placeholder='enter the room Id'
             onChange={(e)=>setTempRoomId(e.target.value)}
              value={tempRoomId}></input>

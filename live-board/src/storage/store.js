@@ -213,6 +213,8 @@ const useStore=create()(
                         
                         const distance = Math.sqrt((e.clientX - shape.x) * 2 + (e.clientY - shape.y) * 2);
                         return distance < 10; 
+                        
+                        
                     }
                     return false
                 })
