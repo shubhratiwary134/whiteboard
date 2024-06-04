@@ -33,6 +33,7 @@ const getRandomInt=useStore((state)=>state.getRandomInt)
 const threads=useStore((state)=>state.threads)
  const canvasRef=useRef(null)
 const addThreads=useStore((state)=>state.addThreads)
+
  useEffect(()=>{
   const canvas=canvasRef.current
   const ctx=canvas.getContext('2d');
@@ -105,24 +106,26 @@ const addThreads=useStore((state)=>state.addThreads)
         if(selection){
           selectShape(e)
         }else{
-          startDrawing(e)
-          
+          startDrawing(e)  
         }
         
        }}
        onPointerMove={(e)=>{
         if(isDragging){
           forPointerMove(e)
-        }else{
           
+        }
+        else{
           continueDrawing(e)
+          
         }
        }}
        onPointerUp={()=>{
         if(selection){
-          forPointerUp()
-        }else{
-          stopDrawing()
+          forPointerUp()  
+        }
+        else{
+          stopDrawing() 
         }
        }}
 

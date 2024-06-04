@@ -23,6 +23,30 @@ const useStore=create()(
             cursor:{x:0,y:0},
             selection:false,
             commentValues:{},
+            commentDragging:false,
+            DissolveMovementPointerDown:()=>{
+               
+                set({commentDragging:true})  
+               
+            },
+            DissolveMovementPointerMove:(threadId,e)=>{
+                const {commentDragging}=get()
+                const {threads}=get()
+                const thread=threads[threadId]
+                if(!commentDragging){
+                    return
+                }
+                set({
+                    threads:{...threads,
+                    [threadId]:
+                    {...thread,
+                        x:e.clientX,
+                        y:e.clientY
+                    }}})
+            },
+            DissolveMovementPointerUp:()=>{
+                set({commentDragging:false})
+            },
             setCommentValue:(threadId,commentValue)=>{
                 const {commentValues}=get()
                 set({commentValues:{...commentValues,[threadId]:commentValue}})
@@ -227,14 +251,12 @@ const useStore=create()(
                 
             },
             cursorMovement:(e)=>{
-               
                 set({
                     cursor:{
                        x:e.clientX,
                        y:e.clientY
                     }
-                })
-                
+                })  
             },
             cursorLeave:()=>{
                 set({
@@ -259,8 +281,7 @@ const useStore=create()(
                 set({shapeSelected:shapeId,isDragging:true})
             },
            forPointerUp:()=>{
-            set({isDragging:false})
-            
+            set({isDragging:false})    
            },
            forPointerMove:(e)=>{
             e.preventDefault()
@@ -323,7 +344,7 @@ const useStore=create()(
         {
             client,
             storageMapping:{shapes:true,roomIDs:true,path:true,threads:true,commentValues:true},
-            presenceMapping:{shapeSelected:true,cursor:true}
+            presenceMapping:{shapeSelected:true,cursor:true,commentDragging:true}
         }
     )
 )
