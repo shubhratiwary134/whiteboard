@@ -8,7 +8,7 @@
                 </div>
                
                 <div >
-                <p className='text-2xl'>SyncThink</p>
+                <p className='text-2xl'>SyncThinks</p>
                 </div>
                 
             </div>

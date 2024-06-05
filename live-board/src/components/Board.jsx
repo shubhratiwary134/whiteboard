@@ -100,8 +100,7 @@ const addThreads=useStore((state)=>state.addThreads)
           </>
         )
       })}
-          <div className='canvas'>
-          
+          <div className='canvas'>  
        <canvas ref={canvasRef} width={window.innerWidth-50} height={window.innerHeight-50} 
        onPointerDown={(e)=>{
         if(selection){
