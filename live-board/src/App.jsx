@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import InitialPage from './components/InitialPage'
 import Room from './components/Room.jsx'
+import LoadingPage from './components/LoadingPage.jsx'
 
 
 
@@ -37,7 +38,8 @@ return(
   
   <Route path='/' element={<InitialPage></InitialPage>}></Route>
   <Route path='/room/:roomID' element={<Room></Room>}></Route>
-  {/* <Route path='/comments' element={<AnotherApp></AnotherApp>}></Route> */}
+ 
+  
  </Routes>
  </BrowserRouter>
   </>

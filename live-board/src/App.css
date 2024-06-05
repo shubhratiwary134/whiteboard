@@ -84,7 +84,7 @@ body {
 
   background-color: #f8f8f8;
 
-  color: #181818;
+  
 
   border: none;
 
@@ -110,8 +110,9 @@ body {
 .toolbar button:hover,
 
 .toolbar button:focus {
-
-  background-color: #ffffff;
+  transform: translateY(-10px);
+  background-color: black;
+  transition: 1s;
 
 }
 

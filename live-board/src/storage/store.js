@@ -281,6 +281,7 @@ const useStore=create()(
                 set({shapeSelected:shapeId,isDragging:true})
             },
            forPointerUp:()=>{
+            get().liveblocks.room?.history.resume()
             set({isDragging:false})    
            },
            forPointerMove:(e)=>{
@@ -292,6 +293,7 @@ const useStore=create()(
             }
             
             if(shapeSelected){
+                get().liveblocks.room?.history.pause()
                 if(shape.type==='rectangle'){
                     set({
                         shapes:{

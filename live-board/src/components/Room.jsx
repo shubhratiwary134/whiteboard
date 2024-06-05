@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useStore  from '../storage/store.js';
 import { useEffect } from "react";
 import Board from "./Board.jsx";
+import LoadingPage from "./LoadingPage.jsx";
 
 export default function Room(){
     const {roomID}=useParams()
@@ -16,7 +17,7 @@ export default function Room(){
     },[roomID,enterRoom,leaveRoom])
     if(isLoading){
         return(
-            <div className="loading">loading...</div>
+            <div className="loading"><LoadingPage></LoadingPage></div>
         )
     }
    
