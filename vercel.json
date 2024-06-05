@@ -4,11 +4,11 @@
       {
         "src": "live-board/package.json",
         "use": "@vercel/static-build",
-        "config": { "distDir": "live-board/dist" }
+        "config": { "distDir": "live-board/dist/" }
       }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/live-board/index.html" }
+      { "src": "/(.*)", "dest": "/live-board/dist/index.html" }
     ]
   }
   
