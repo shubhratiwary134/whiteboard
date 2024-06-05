@@ -43,7 +43,7 @@ const addThreads=useStore((state)=>state.addThreads)
    Object.entries(shapes).map(([shapeId,shape])=>{
     let borderColor='white'
     if(shapeSelected===shapeId){
-      borderColor='white'
+      borderColor='blue'
     }
     else if(others.some((user)=>user.presence.shapeSelected===shapeId)){
       borderColor='green'
