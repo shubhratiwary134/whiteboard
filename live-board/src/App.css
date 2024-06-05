@@ -112,7 +112,7 @@ body {
 .toolbar button:focus {
   transform: translateY(-10px);
   background-color: black;
-  transition: 1s;
+  transition: .65s;
 
 }
 
