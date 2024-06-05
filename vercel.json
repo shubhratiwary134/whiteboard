@@ -2,13 +2,13 @@
     "version": 2,
     "builds": [
       {
-        "src": "liveboard/package.json",
+        "src": "live-board/package.json",
         "use": "@vercel/static-build",
-        "config": { "distDir": "liveboard/dist" }
+        "config": { "distDir": "live-board/dist" }
       }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/liveboard/index.html" }
+      { "src": "/(.*)", "dest": "/live-board/index.html" }
     ]
   }
   
