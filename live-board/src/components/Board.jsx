@@ -43,10 +43,10 @@ const addThreads=useStore((state)=>state.addThreads)
    Object.entries(shapes).map(([shapeId,shape])=>{
     let borderColor='white'
     if(shapeSelected===shapeId){
-      borderColor='blue'
+      borderColor='#00FF99'
     }
     else if(others.some((user)=>user.presence.shapeSelected===shapeId)){
-      borderColor='green'
+      borderColor='blue'
     
     }
     printRectangle(shape,borderColor,ctx,roughCanvas)
