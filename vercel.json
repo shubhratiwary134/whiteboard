@@ -1,16 +1,12 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "live-board/package.json",
-        "use": "@vercel/static-build",
-        "config": { "distDir": "live-board/dist" }
-      }
-    ],
-    "routes": [
-      { "src": "/(.*)", "dest": "/live-board/dist/index.html" }
-    ]
-  }
-  
-  
-
+  "version": 2,
+  "builds": [
+    {
+      "src": "WHITEBOARD/live-board",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/WHITEBOARD/live-board/index.html" }
+  ]
+}
