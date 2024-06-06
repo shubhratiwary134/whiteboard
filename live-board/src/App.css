@@ -68,6 +68,18 @@ body {
   
 
 }
+@media screen and (max-width: 900px) {
+  .toolbar{
+    flex-direction: column;
+    top: 10px;
+    left:50px;
+  }
+  .roomID{
+    position: absolute;
+    top:10px;
+    right: 20px;
+  }
+}
 
 
 .toolbar button {

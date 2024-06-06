@@ -47,10 +47,11 @@ else{
         <>
         <Navbar></Navbar>
         <div className=' text-black flex justify-around items-center'>
-            <div className=''>
+            <div className='hidden md:flex'>
                 <img src={logo}></img>
             </div>
-          <button onClick={EnterRooms} className='shadow-[inset_0_0_0_2px_#616467] text-white px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200  '>Create Room</button>
+            <div className='flex flex-col justify-between '>
+            <button onClick={EnterRooms} className='shadow-[inset_0_0_0_2px_#616467] text-white px-12 py-4 mb-10 md:px-0 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200  '>Create Room</button>
           <div>
           <button onClick={()=>{setJoin(!join)
             }} className='  shadow-[inset_0_0_0_2px_#616467] text-white px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200 flex justify-around'>Join Room 
@@ -61,6 +62,8 @@ else{
              value={tempRoomId}></input>
               <button onClick={joinRoom} className='shadow-[inset_0_0_0_2px_#616467] text-white my-4  py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200 '>submit</button>
              </div>:null}
+            </div>
+         
             
              
              
