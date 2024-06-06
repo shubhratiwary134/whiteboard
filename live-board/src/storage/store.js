@@ -24,6 +24,7 @@ const useStore=create()(
             selection:false,
             commentValues:{},
             commentDragging:false,
+           
             DissolveMovementPointerDown:()=>{
                
                 set({commentDragging:true})  
