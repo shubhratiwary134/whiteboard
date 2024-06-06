@@ -3,7 +3,7 @@ import { createClient } from "@liveblocks/client";
 import { liveblocks } from '@liveblocks/zustand'
 
 const client = createClient({
-publicApiKey:'pk_prod__SYQ5Xvp8_yqm6RnOeX0Y2AzJ8Sgy6ZLQbtHxcnv1I9BChodb_KzG5dlgqgyNaGf'
+publicApiKey: import.meta.env.VITE_API_KEY
 })
 
 
