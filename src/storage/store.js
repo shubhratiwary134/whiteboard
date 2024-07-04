@@ -74,7 +74,7 @@ const useStore=create()(
             [threadId]:{...threads[threadId],
                 text:text
             }}})
-            console.log(threads)
+            
             
          
             },
@@ -248,7 +248,7 @@ const useStore=create()(
                 } else {
                     set({ shapeSelected: null, isDragging: false }); 
                 }
-                console.log(shapeSelected)
+               
                 
             },
             cursorMovement:(e)=>{
