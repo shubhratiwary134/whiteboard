@@ -10,7 +10,7 @@ export default function InitialPage(){
    
     const [join,setJoin ] = useState(false);
     const [tempRoomId,setTempRoomId]=useState(null)
-   const roomIDs = useStore((state)=>state.roomIDs)
+  
     const isLoading = useStore((state)=>state.liveblocks.isStorageLoading)
     const setRoomID=useStore((state)=>state.setRoomID)
     const addRoomID=useStore((state)=>state.addRoomID)
@@ -19,8 +19,8 @@ export default function InitialPage(){
 const navigate=useNavigate()
 useEffect(() => {
     fetchRoomIDs()
-    console.log(roomIDs)
-  }, [fetchRoomIDs,roomIDs]);
+    
+  }, [fetchRoomIDs]);
 
    function EnterRooms(){
     
