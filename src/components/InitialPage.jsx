@@ -10,17 +10,17 @@ export default function InitialPage(){
    
     const [join,setJoin ] = useState(false);
     const [tempRoomId,setTempRoomId]=useState(null)
-    const roomIDs=useStore((state)=>state.roomIDs)
+   const roomIDs = useStore((state)=>state.roomIDs)
     const isLoading = useStore((state)=>state.liveblocks.isStorageLoading)
     const setRoomID=useStore((state)=>state.setRoomID)
     const addRoomID=useStore((state)=>state.addRoomID)
     const checkRoomID=useStore((state)=>state.checkRoomID)
-
+    const fetchRoomIDs=useStore((state)=>state.fetchRoomIDs)
 const navigate=useNavigate()
 useEffect(() => {
-    console.log('Current roomIDs:', roomIDs);
-    
-  }, [roomIDs]);
+    fetchRoomIDs()
+    console.log(roomIDs)
+  }, [fetchRoomIDs,roomIDs]);
 
    function EnterRooms(){
     

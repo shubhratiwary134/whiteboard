@@ -26,9 +26,10 @@ const useStore=create()(
             selection:false,
             commentValues:{},
             commentDragging:false,
-            fetchRoomIDs:()=>{
-                const RoomIDsSnapShot = getDocs(collection(db,'RoomIDs'))
-                const RoomIDsList = RoomIDsSnapShot.docs.map(doc => doc.data().roomID)
+            fetchRoomIDs:async()=>{
+                const roomIDsCollection = collection(db, 'RoomIDs');
+                const RoomIDsSnapShot = await getDocs(roomIDsCollection)
+                const RoomIDsList = await RoomIDsSnapShot.docs.map(doc => doc.data().roomID)
                 set({roomIDs:RoomIDsList})
             },
            
