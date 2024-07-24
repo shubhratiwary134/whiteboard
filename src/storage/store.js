@@ -1,6 +1,8 @@
 import {create} from 'zustand'
 import { createClient } from "@liveblocks/client";
 import { liveblocks } from '@liveblocks/zustand'
+import { db } from '../Firebase';
+import { collection,addDoc,getDocs } from 'firebase/firestore';
 
 const client = createClient({
 publicApiKey: import.meta.env.VITE_API_KEY
@@ -15,7 +17,7 @@ const useStore=create()(
             shapes:{},
             threads:{},
             roomID:null,
-            roomIDs: JSON.parse(localStorage.getItem('roomIDs')) || [],
+            roomIDs: [],
             shapeSelected:null,
             isDragging:false,
             drawing:false,
@@ -24,6 +26,11 @@ const useStore=create()(
             selection:false,
             commentValues:{},
             commentDragging:false,
+            fetchRoomIDs:()=>{
+                const RoomIDsSnapShot = getDocs(collection(db,'RoomIDs'))
+                const RoomIDsList = RoomIDsSnapShot.docs.map(doc => doc.data().roomID)
+                set({roomIDs:RoomIDsList})
+            },
            
             DissolveMovementPointerDown:()=>{
                

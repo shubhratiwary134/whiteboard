@@ -15,9 +15,11 @@ export default function InitialPage(){
     const setRoomID=useStore((state)=>state.setRoomID)
     const addRoomID=useStore((state)=>state.addRoomID)
     const checkRoomID=useStore((state)=>state.checkRoomID)
+
 const navigate=useNavigate()
 useEffect(() => {
     console.log('Current roomIDs:', roomIDs);
+    
   }, [roomIDs]);
 
    function EnterRooms(){
