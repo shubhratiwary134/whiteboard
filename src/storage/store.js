@@ -32,6 +32,7 @@ const useStore=create()(
                 set({roomIDs:RoomIDsList})
             },
            
+           
             DissolveMovementPointerDown:()=>{
                
                 set({commentDragging:true})  
@@ -101,11 +102,11 @@ const useStore=create()(
             setRoomID:(roomID)=>{
                 set({roomID})
             },
-            addRoomID:(roomID)=>{
+            addRoomID:async (roomID)=>{
                 const {roomIDs}=get()
                 const newRoomIDs = [...roomIDs, roomID]
-        localStorage.setItem('roomIDs', JSON.stringify(newRoomIDs))
-        set({ roomIDs: newRoomIDs })
+        await addDoc(collection(db,'RoomIDs'),{roomID})
+          set({ roomIDs: newRoomIDs })
        
             },
 
